@@ -1,6 +1,6 @@
 import setuptools
 import os
-
+from pathlib import Path
 here = os.path.abspath(os.path.dirname(__file__))
 
 # Get the code version
@@ -9,15 +9,10 @@ with open(os.path.join(here, "lionagi/version.py")) as fp:
     exec(fp.read(), version)
 __version__ = version["__version__"]
 
-install_requires = [
-    "aiohttp",
-    "python-dotenv",
-    "tiktoken", 
-    "pydantic",
-    "cryptography",
-    "aiocache",
-    "pandas"
-]
+
+here = Path(__file__).resolve().parent
+install_requires = (here / "requirements.txt").read_text(encoding="utf-8").splitlines()
+
 
 setuptools.setup(
     name="lionagi",
